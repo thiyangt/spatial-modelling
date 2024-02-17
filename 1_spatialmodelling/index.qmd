@@ -1,5 +1,5 @@
 ---
-pagetitle: "Spatial Data Modelling"
+pagetitle: "Spatial Data Science"
 author: "Dr Thiyanga S. Talagala"
 date: "18 February 2024"
 host: "MSc in Data Science and Intelligence"
@@ -150,7 +150,7 @@ map <- rnaturalearth::ne_states("Canada", returnclass = "sf")
 map
 ```
 
-## Visualisation of the spatial domain
+## Visualisation of the spatial domain $D$
 
 This represents $D$ - spatial domain (geographical region which the observations could be made)
 
@@ -158,16 +158,19 @@ This represents $D$ - spatial domain (geographical region which the observations
 ggplot(map) + geom_sf()
 ```
 
+::: {.f3 .monash-gray80 style="line-height:0.9!important;"}
+
 A spatial stochastic process is a family of random variables $$\{Z(s): s \in D\}.$$
 
-## Visualisation of the spatial domain, and $z(s_i)$ values
+:::
+
+
+## Visualisation of the spatial domain ($D$), and $z(s_i)$ values
 
 
 ```{r}
 library(viridis)
-ggplot(map) + geom_sf() +
-  geom_sf(data=df, aes(color = temp), size=3) +
-  scale_color_viridis()
+ggplot(map) + geom_sf() + geom_sf(data=df, aes(color = temp), size=3) + scale_color_viridis()
 ```
 
 
@@ -207,3 +210,328 @@ ggplot(map) + geom_sf() +
 ```
 
 
+## Weakly Stationary
+
+
+## Strictly Stationary
+
+
+##
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+### Isotropy
+
+direction-independent
+
+```{r}
+#| echo: false
+#| fig-width: 15
+#| fig-height: 15
+set.seed(99999)
+large_number <- 1e5
+x <- rnorm(large_number)
+y <- rnorm(large_number)
+z <- cbind(x, y)
+z <- data.frame(z)
+
+ggplot(z) +
+  geom_density2d_filled(aes(x = x, y = y)) +
+   theme(legend.position = "none") +
+  coord_fixed()
+
+```
+
+:::
+
+::: {.column width="50%"}
+
+### Anisotropic
+
+direction-independent
+
+```{r}
+#| echo: false
+#| fig-width: 15
+#| fig-height: 15
+A <- matrix(c(1, 0,
+              0.9, sqrt(1 - 0.8^2)), byrow = TRUE, nrow = 2, ncol = 2)
+x <- t(A %*% t(z)) 
+colnames(x) <- c('x', 'y') # forces the aspect ratio to be 1:1 so you see the ellipses!
+ggplot(data.frame(x)) +
+  geom_density2d_filled(aes(x, y)) +
+  theme(legend.position = "none") +
+  coord_fixed()
+
+```
+
+:::
+
+::::
+
+
+##
+
+1. What is isotropic?
+  
+   The correlation between any two observations depends only on the **distance between those locations** and not on their relative direction (directionally invariant).
+
+
+2. Why is isotropic important in spatial data analysis?
+
+   This assumption simplifies analysis and modeling processes.
+
+
+
+## Spatial Interpolation
+
+Spatial interpolation is the activity of estimating values of spatially continuous variables (fields) for spatial locations where they have not been observed, based on observations.
+
+### Spatial Interpolation Methods
+
+- Inverse Distance Weighting (IDW): It estimates values for unmeasured locations by considering the values and distances of nearby measured points.
+
+- Kriging: A geostatistical technique that provides optimal predictions and quantifies uncertainty by analyzing spatial autocorrelation.
+
+
+- Spline Interpolation: It fits a smooth curve through measured points to estimate values at unmeasured locations.
+
+- Nearest-neighbor interpolation: It assigns the value of the closest measured point to the unmeasured location.
+
+## Statial Interpolation Methods (cont.)
+
+- Natural Neighbor: Similar to nearest neighbor but considers multiple nearby points and their influence.
+
+- Radial Basis Function (RBF): It constructs a continuous function that satisfies given data values and radial symmetry properties.
+
+- Deep Learning Model for Spatial Interpolation 
+
+- Image-driven spatial interpolation
+
+- Bayesian deep learning approaches
+
+- Ensemble approaches
+
+## Inverse Distance Weighting (IDW)
+
+- Nonparametric interpolation method
+
+- Based on weighted averages of the observations. 
+
+- Weights are calculated based on the inverse of the distances between the known data points and the location where the estimation is being made
+
+- Relies on Tobler’s first law of geography
+
+## Inverse Distance Weighting (IDW)
+
+Suppose $s_0$ is the point that we need to interpolate. Then,
+
+$$\hat{Z}(s_0) = \frac{\sum_{i=1}^{n}w(s_i)Z(s_i)}{\sum_{i=1}^nw(s_i)}$$ and $w_i$ is defined as 
+
+$$w_i = \frac{1}{||s_i - s_o||^p}$$
+
+- We can tune the value of $p$ using a cross validation method
+
+- We can limit the amount of neighbours to take into consideration to speed up the computations.
+
+## Your turn
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{r, comment=NA, echo=FALSE}
+location <- 1:5
+x <- c(2, 3, 9, 6, 5)
+y <- c(2, 7, 9, 5, 3)
+z <- c(10, 11, 15, 9, 8)
+#d_5_5 <- sqrt((x - 5)^2 + (y-5)^2)
+df1 <- data.frame(x=x, y=y, z=z)
+knitr::kable(df1)
+```
+
+:::
+
+::: {.column width="60%"}
+
+```{r, comment=NA, echo=FALSE}
+ggplot(df1, aes(x=x, y=y, col=z)) + geom_point(size=3) + coord_fixed()
+```
+
+:::
+
+::::
+
+We want to find z value at x=5, y=5.
+
+## Answer
+
+```{r, comment=NA, echo=FALSE}
+location <- 1:5
+x <- c(2, 3, 9, 6, 5)
+y <- c(2, 7, 9, 5, 3)
+z <- c(10, 11, 15, 9, 8)
+d_5_5 <- sqrt((x - 5)^2 + (y-5)^2)
+df1 <- data.frame(x=x, y=y, z=z, dis_to_55=d_5_5)
+df1$inv_dis <- 1/d_5_5
+df1$weight <- df1$inv_dis/sum(df1$inv_dis)
+knitr::kable(df1)
+```
+
+Predicted value at (5, 5)
+
+$z(5, 5) = 10\times 0.104 + 11 \times 0.156 + 15 \times 0.078 + \\ 9 \times 0.441 + 8 \times 0.220$
+
+## IDW - Application
+
+
+<!--https://www.paulamoraga.com/book-spatial/spatial-interpolation-methods.html-->
+
+<!--https://www.geo.fu-berlin.de/en/v/soga-r/Advances-statistics/Geostatistics/Inverse-Distance-Weighting-IDW/IDW-Interpolation-of-Weather-Data/index.html-->
+
+<!--https://bookdown.org/igisc/EnvDataSci/spatial-interpolation.html-->
+
+Question: Interpolate Mean $NO_2$
+ concentrations in air  in Germany, in 2017
+
+Step 1: Load necessary packages
+
+```{r, warning=FALSE, message=FALSE}
+library(gstat)
+library(tidyverse)
+```
+
+Step 2: Read data
+
+```{r}
+no2 <- read_csv(system.file("external/no2.csv", 
+    package = "gstat"), show_col_types = FALSE)
+no2
+```
+
+
+
+##
+
+```{r}
+head(data.frame(no2), 3)
+```
+
+## Create a Coordinate Reference System (CRS) Object
+
+- st_crs: used to create a coordinate reference system (CRS) object.
+
+- `EPSG:32632` is a specific CRS identifier. In this case, it refers to a CRS known as "WGS 84 / UTM zone 32N". This CRS is commonly used for mapping and spatial analysis in Europe, particularly in the northern regions.
+
+- The following line of code creates a CRS object named crs representing the coordinate reference system "WGS 84 / UTM zone 32N".
+
+
+
+```{r}
+crs <- st_crs("EPSG:32632")
+crs
+```
+
+
+
+## convert no2 to spatial object
+
+```{r}
+no2.sf <- st_as_sf(no2, crs = "OGC:CRS84", coords = 
+    c("station_longitude_deg", "station_latitude_deg")) |>
+    st_transform(crs) 
+no2.sf
+```
+
+## EPSG: 32632 vs OGC: CRS84
+
+- EPSG:32632
+  
+  Commonly used for regional mapping and spatial analysis in Europe, particularly in the northern regions. 
+
+- OGC:CRS84
+  
+  Often used in web mapping applications and geospatial data exchange due to its simplicity and widespread support. 
+  
+
+-  EPSG:32632 is a regional projected CRS optimized for mapping specific areas with minimal distortion, while OGC:CRS84 is a global geographic CRS commonly used for general-purpose mapping and data exchange. 
+
+## Load country boundary
+
+```{r}
+
+map <- read_sf("de_nuts1.gpkg") |> st_transform(crs) 
+map
+```
+
+::: {.f3 .monash-gray80 style="line-height:0.9!important;"}
+
+Data source: https://github.com/edzer/sdsr/tree/main/data 
+ (select de_nuts1.gpkg)
+
+:::
+
+## Plot map
+
+```{r}
+ggplot() + geom_sf(data = map)
+```
+
+## Add observed values to the map
+
+```{r}
+ggplot() + geom_sf(data = map) + 
+geom_sf(data = no2.sf, mapping = aes(col = NO2)) + 
+  scale_color_viridis()
+```
+
+## IDW 
+Step 1: Create a regular grid ($10km \times 10km$)
+
+```{r, warning=FALSE}
+library(stars)
+grid <- st_bbox(map) |>
+  st_as_stars(dx = 10000) |> st_crop(map) 
+grid
+```
+
+- `st_bbox(map)`: Calculate the bounding box of the spatial object `map`.
+
+- `st_as_stars(dx = 10000)`: Convert the bounding box obtained from `st_bbox(map)` into a raster object using the stars package. The `dx` parameter sets the cell size (in the x-direction) for the resulting raster, with a value of 10000 specified here.
+
+##
+
+- `st_crop(map):` This function crops the raster grid obtained from st_as_stars(dx = 10000) to match the extent of the map object. This ensures that the resulting grid covers only the area within the spatial extent of the map object.
+
+## IDW 
+
+Step 2: Interpolation
+
+```{r}
+library(gstat)
+interpolated.values <- idw(NO2~1, no2.sf, grid)
+interpolated.values 
+```
+
+## IDW
+
+Step 3: Plot values
+
+```{r}
+ggplot() + geom_stars(data = interpolated.values, 
+                      aes(fill = var1.pred, x = x, y = y)) + 
+    geom_sf(data = st_cast(map, "MULTILINESTRING")) + 
+    geom_sf(data = no2.sf, col="red") + scale_fill_viridis() 
+```
+
+## Comparison
+
+```{r}
+library(patchwork)
+p1 <- ggplot() + geom_sf(data = map) +  geom_sf(data = no2.sf, mapping = aes(col = NO2)) + scale_color_viridis()
+p2 <- ggplot() + geom_stars(data = interpolated.values, 
+                      aes(fill = var1.pred, x = x, y = y)) + geom_sf(data = st_cast(map, "MULTILINESTRING")) + geom_sf(data = no2.sf, col="red") + scale_fill_viridis() 
+p1|p2
+```

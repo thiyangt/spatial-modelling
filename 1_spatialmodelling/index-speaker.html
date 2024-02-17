@@ -12,7 +12,7 @@
 
   <meta name="author" content="Dr Thiyanga S. Talagala">
   <meta name="dcterms.date" content="2024-02-18">
-  <title>Spatial Data Modelling</title>
+  <title>Spatial Data Science</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -398,7 +398,7 @@
 <h2></h2>
 <div class="title-box">
 <h2>
-Spatial Data Modelling
+Spatial Data Science
 </h2>
 <p>👩🏻‍💻 <span class="author">Dr Thiyanga S. Talagala @ University of Sri Jayewardenepura</span></p>
 <div style="overflow: hidden; height: 1.2em;">
@@ -901,8 +901,8 @@ First 10 features:
 </div>
 </div>
 </section>
-<section id="visualisation-of-the-spatial-domain" class="slide level2">
-<h2>Visualisation of the spatial domain</h2>
+<section id="visualisation-of-the-spatial-domain-d" class="slide level2">
+<h2>Visualisation of the spatial domain <span class="math inline">\(D\)</span></h2>
 <p>This represents <span class="math inline">\(D\)</span> - spatial domain (geographical region which the observations could be made)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggplot</span>(map) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -910,15 +910,15 @@ First 10 features:
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
 </div>
 </div>
+<div class="f3 monash-gray80" style="line-height:0.9!important;">
 <p>A spatial stochastic process is a family of random variables <span class="math display">\[\{Z(s): s \in D\}.\]</span></p>
+</div>
 </section>
-<section id="visualisation-of-the-spatial-domain-and-zs_i-values" class="slide level2">
-<h2>Visualisation of the spatial domain, and <span class="math inline">\(z(s_i)\)</span> values</h2>
+<section id="visualisation-of-the-spatial-domain-d-and-zs_i-values" class="slide level2">
+<h2>Visualisation of the spatial domain (<span class="math inline">\(D\)</span>), and <span class="math inline">\(z(s_i)\)</span> values</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">ggplot</span>(map) <span class="sc">+</span> <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>df, <span class="fu">aes</span>(<span class="at">color =</span> temp), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a>  <span class="fu">scale_color_viridis</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">ggplot</span>(map) <span class="sc">+</span> <span class="fu">geom_sf</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>df, <span class="fu">aes</span>(<span class="at">color =</span> temp), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">scale_color_viridis</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
 </div>
@@ -948,6 +948,517 @@ First 10 features:
 <span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">scale_color_viridis</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+</div>
+</div>
+</section>
+<section id="weakly-stationary" class="slide level2">
+<h2>Weakly Stationary</h2>
+</section>
+<section id="strictly-stationary" class="slide level2">
+<h2>Strictly Stationary</h2>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="isotropy">Isotropy</h3>
+<p>direction-independent</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="1440"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<h3 id="anisotropic">Anisotropic</h3>
+<p>direction-independent</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="1440"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<ol type="1">
+<li class="fragment"><p>What is isotropic?</p>
+<p>The correlation between any two observations depends only on the <strong>distance between those locations</strong> and not on their relative direction (directionally invariant).</p></li>
+<li class="fragment"><p>Why is isotropic important in spatial data analysis?</p>
+<p>This assumption simplifies analysis and modeling processes.</p></li>
+</ol>
+</section>
+<section id="spatial-interpolation" class="slide level2">
+<h2>Spatial Interpolation</h2>
+<p>Spatial interpolation is the activity of estimating values of spatially continuous variables (fields) for spatial locations where they have not been observed, based on observations.</p>
+<h3 id="spatial-interpolation-methods">Spatial Interpolation Methods</h3>
+<ul>
+<li class="fragment"><p>Inverse Distance Weighting (IDW): It estimates values for unmeasured locations by considering the values and distances of nearby measured points.</p></li>
+<li class="fragment"><p>Kriging: A geostatistical technique that provides optimal predictions and quantifies uncertainty by analyzing spatial autocorrelation.</p></li>
+<li class="fragment"><p>Spline Interpolation: It fits a smooth curve through measured points to estimate values at unmeasured locations.</p></li>
+<li class="fragment"><p>Nearest-neighbor interpolation: It assigns the value of the closest measured point to the unmeasured location.</p></li>
+</ul>
+</section>
+<section id="statial-interpolation-methods-cont." class="slide level2">
+<h2>Statial Interpolation Methods (cont.)</h2>
+<ul>
+<li class="fragment"><p>Natural Neighbor: Similar to nearest neighbor but considers multiple nearby points and their influence.</p></li>
+<li class="fragment"><p>Radial Basis Function (RBF): It constructs a continuous function that satisfies given data values and radial symmetry properties.</p></li>
+<li class="fragment"><p>Deep Learning Model for Spatial Interpolation</p></li>
+<li class="fragment"><p>Image-driven spatial interpolation</p></li>
+<li class="fragment"><p>Bayesian deep learning approaches</p></li>
+<li class="fragment"><p>Ensemble approaches</p></li>
+</ul>
+</section>
+<section id="inverse-distance-weighting-idw" class="slide level2">
+<h2>Inverse Distance Weighting (IDW)</h2>
+<ul>
+<li class="fragment"><p>Nonparametric interpolation method</p></li>
+<li class="fragment"><p>Based on weighted averages of the observations.</p></li>
+<li class="fragment"><p>Weights are calculated based on the inverse of the distances between the known data points and the location where the estimation is being made</p></li>
+<li class="fragment"><p>Relies on Tobler’s first law of geography</p></li>
+</ul>
+</section>
+<section id="inverse-distance-weighting-idw-1" class="slide level2">
+<h2>Inverse Distance Weighting (IDW)</h2>
+<p>Suppose <span class="math inline">\(s_0\)</span> is the point that we need to interpolate. Then,</p>
+<p><span class="math display">\[\hat{Z}(s_0) = \frac{\sum_{i=1}^{n}w(s_i)Z(s_i)}{\sum_{i=1}^nw(s_i)}\]</span> and <span class="math inline">\(w_i\)</span> is defined as</p>
+<p><span class="math display">\[w_i = \frac{1}{||s_i - s_o||^p}\]</span></p>
+<ul>
+<li class="fragment"><p>We can tune the value of <span class="math inline">\(p\)</span> using a cross validation method</p></li>
+<li class="fragment"><p>We can limit the amount of neighbours to take into consideration to speed up the computations.</p></li>
+</ul>
+</section>
+<section id="your-turn" class="slide level2">
+<h2>Your turn</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output-display">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">x</th>
+<th style="text-align: right;">y</th>
+<th style="text-align: right;">z</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+<p>We want to find z value at x=5, y=5.</p>
+</section>
+<section id="answer" class="slide level2">
+<h2>Answer</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">x</th>
+<th style="text-align: right;">y</th>
+<th style="text-align: right;">z</th>
+<th style="text-align: right;">dis_to_55</th>
+<th style="text-align: right;">inv_dis</th>
+<th style="text-align: right;">weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4.242641</td>
+<td style="text-align: right;">0.2357023</td>
+<td style="text-align: right;">0.1040154</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2.828427</td>
+<td style="text-align: right;">0.3535534</td>
+<td style="text-align: right;">0.1560231</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">5.656854</td>
+<td style="text-align: right;">0.1767767</td>
+<td style="text-align: right;">0.0780115</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1.000000</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">0.4413000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2.000000</td>
+<td style="text-align: right;">0.5000000</td>
+<td style="text-align: right;">0.2206500</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Predicted value at (5, 5)</p>
+<p><span class="math inline">\(z(5, 5) = 10\times 0.104 + 11 \times 0.156 + 15 \times 0.078 + \\ 9 \times 0.441 + 8 \times 0.220\)</span></p>
+</section>
+<section id="idw---application" class="slide level2">
+<h2>IDW - Application</h2>
+<p>Question: Interpolate Mean <span class="math inline">\(NO_2\)</span> concentrations in air in Germany, in 2017</p>
+<p>Step 1: Load necessary packages</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">library</span>(gstat)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Step 2: Read data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>no2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">"external/no2.csv"</span>, </span>
+<span id="cb21-2"><a href="#cb21-2"></a>    <span class="at">package =</span> <span class="st">"gstat"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-3"><a href="#cb21-3"></a>no2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 74 × 21
+   station_european_code station_local_code country_iso_code country_name
+   &lt;chr&gt;                 &lt;chr&gt;              &lt;chr&gt;            &lt;chr&gt;       
+ 1 DENI063               DENI063            DE               Germany     
+ 2 DEBY109               DEBY109            DE               Germany     
+ 3 DEBE056               DEBE056            DE               Germany     
+ 4 DEBE062               DEBE062            DE               Germany     
+ 5 DEBE032               DEBE032            DE               Germany     
+ 6 DEHE046               DEHE046            DE               Germany     
+ 7 DEBY122               DEBY122            DE               Germany     
+ 8 DESL019               DESL019            DE               Germany     
+ 9 DENW081               DENW081            DE               Germany     
+10 DESH008               DESH008            DE               Germany     
+# ℹ 64 more rows
+# ℹ 17 more variables: station_name &lt;chr&gt;, station_start_date &lt;date&gt;,
+#   station_end_date &lt;lgl&gt;, type_of_station &lt;chr&gt;,
+#   station_ozone_classification &lt;chr&gt;, station_type_of_area &lt;chr&gt;,
+#   station_subcat_rural_back &lt;chr&gt;, street_type &lt;chr&gt;,
+#   station_longitude_deg &lt;dbl&gt;, station_latitude_deg &lt;dbl&gt;,
+#   station_altitude &lt;dbl&gt;, station_city &lt;chr&gt;, lau_level1_code &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(no2), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  station_european_code station_local_code country_iso_code country_name
+1               DENI063            DENI063               DE      Germany
+2               DEBY109            DEBY109               DE      Germany
+3               DEBE056            DEBE056               DE      Germany
+        station_name station_start_date station_end_date type_of_station
+1         Altes Land         1999-02-11               NA      Background
+2 Andechs/Rothenfeld         2003-04-17               NA      Background
+3  B Friedrichshagen         1994-02-01               NA      Background
+  station_ozone_classification station_type_of_area station_subcat_rural_back
+1                        rural                rural                   unknown
+2                        rural                rural                  regional
+3                        rural                rural                 near city
+  street_type station_longitude_deg station_latitude_deg station_altitude
+1        &lt;NA&gt;              9.685031             53.52418                3
+2        &lt;NA&gt;             11.220172             47.96875              700
+3        &lt;NA&gt;             13.647050             52.44770               35
+  station_city lau_level1_code lau_level2_code lau_level2_name EMEP_station
+1         &lt;NA&gt;              NA         3359028            Jork           no
+2         &lt;NA&gt;              NA         9188117         Andechs           no
+3         &lt;NA&gt;              NA        11000000   Berlin, Stadt           no
+        NO2
+1 13.102806
+2  7.135128
+3 12.799011</code></pre>
+</div>
+</div>
+</section>
+<section id="create-a-coordinate-reference-system-crs-object" class="slide level2">
+<h2>Create a Coordinate Reference System (CRS) Object</h2>
+<ul>
+<li class="fragment"><p>st_crs: used to create a coordinate reference system (CRS) object.</p></li>
+<li class="fragment"><p><code>EPSG:32632</code> is a specific CRS identifier. In this case, it refers to a CRS known as “WGS 84 / UTM zone 32N”. This CRS is commonly used for mapping and spatial analysis in Europe, particularly in the northern regions.</p></li>
+<li class="fragment"><p>The following line of code creates a CRS object named crs representing the coordinate reference system “WGS 84 / UTM zone 32N”.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>crs <span class="ot">&lt;-</span> <span class="fu">st_crs</span>(<span class="st">"EPSG:32632"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coordinate Reference System:
+  User input: EPSG:32632 
+  wkt:
+PROJCRS["WGS 84 / UTM zone 32N",
+    BASEGEOGCRS["WGS 84",
+        ENSEMBLE["World Geodetic System 1984 ensemble",
+            MEMBER["World Geodetic System 1984 (Transit)"],
+            MEMBER["World Geodetic System 1984 (G730)"],
+            MEMBER["World Geodetic System 1984 (G873)"],
+            MEMBER["World Geodetic System 1984 (G1150)"],
+            MEMBER["World Geodetic System 1984 (G1674)"],
+            MEMBER["World Geodetic System 1984 (G1762)"],
+            MEMBER["World Geodetic System 1984 (G2139)"],
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1]],
+            ENSEMBLEACCURACY[2.0]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4326]],
+    CONVERSION["UTM zone 32N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",9,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    USAGE[
+        SCOPE["Navigation and medium accuracy spatial referencing."],
+        AREA["Between 6°E and 12°E, northern hemisphere between equator and 84°N, onshore and offshore. Algeria. Austria. Cameroon. Denmark. Equatorial Guinea. France. Gabon. Germany. Italy. Libya. Liechtenstein. Monaco. Netherlands. Niger. Nigeria. Norway. Sao Tome and Principe. Svalbard. Sweden. Switzerland. Tunisia. Vatican City State."],
+        BBOX[0,6,84,12]],
+    ID["EPSG",32632]]</code></pre>
+</div>
+</div>
+</section>
+<section id="convert-no2-to-spatial-object" class="slide level2">
+<h2>convert no2 to spatial object</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>no2.sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(no2, <span class="at">crs =</span> <span class="st">"OGC:CRS84"</span>, <span class="at">coords =</span> </span>
+<span id="cb27-2"><a href="#cb27-2"></a>    <span class="fu">c</span>(<span class="st">"station_longitude_deg"</span>, <span class="st">"station_latitude_deg"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>    <span class="fu">st_transform</span>(crs) </span>
+<span id="cb27-4"><a href="#cb27-4"></a>no2.sf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 74 features and 19 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 304638.2 ymin: 5263687 xmax: 900829.7 ymax: 6086661
+Projected CRS: WGS 84 / UTM zone 32N
+# A tibble: 74 × 20
+   station_european_code station_local_code country_iso_code country_name
+ * &lt;chr&gt;                 &lt;chr&gt;              &lt;chr&gt;            &lt;chr&gt;       
+ 1 DENI063               DENI063            DE               Germany     
+ 2 DEBY109               DEBY109            DE               Germany     
+ 3 DEBE056               DEBE056            DE               Germany     
+ 4 DEBE062               DEBE062            DE               Germany     
+ 5 DEBE032               DEBE032            DE               Germany     
+ 6 DEHE046               DEHE046            DE               Germany     
+ 7 DEBY122               DEBY122            DE               Germany     
+ 8 DESL019               DESL019            DE               Germany     
+ 9 DENW081               DENW081            DE               Germany     
+10 DESH008               DESH008            DE               Germany     
+# ℹ 64 more rows
+# ℹ 16 more variables: station_name &lt;chr&gt;, station_start_date &lt;date&gt;,
+#   station_end_date &lt;lgl&gt;, type_of_station &lt;chr&gt;,
+#   station_ozone_classification &lt;chr&gt;, station_type_of_area &lt;chr&gt;,
+#   station_subcat_rural_back &lt;chr&gt;, street_type &lt;chr&gt;, station_altitude &lt;dbl&gt;,
+#   station_city &lt;chr&gt;, lau_level1_code &lt;dbl&gt;, lau_level2_code &lt;dbl&gt;,
+#   lau_level2_name &lt;chr&gt;, EMEP_station &lt;chr&gt;, NO2 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="epsg-32632-vs-ogc-crs84" class="slide level2">
+<h2>EPSG: 32632 vs OGC: CRS84</h2>
+<ul>
+<li class="fragment"><p>EPSG:32632</p>
+<p>Commonly used for regional mapping and spatial analysis in Europe, particularly in the northern regions.</p></li>
+<li class="fragment"><p>OGC:CRS84</p>
+<p>Often used in web mapping applications and geospatial data exchange due to its simplicity and widespread support.</p></li>
+<li class="fragment"><p>EPSG:32632 is a regional projected CRS optimized for mapping specific areas with minimal distortion, while OGC:CRS84 is a global geographic CRS commonly used for general-purpose mapping and data exchange.</p></li>
+</ul>
+</section>
+<section id="load-country-boundary" class="slide level2">
+<h2>Load country boundary</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>map <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"de_nuts1.gpkg"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(crs) </span>
+<span id="cb29-2"><a href="#cb29-2"></a>map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 16 features and 16 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 280741.3 ymin: 5235822 xmax: 921330.5 ymax: 6101239
+Projected CRS: WGS 84 / UTM zone 32N
+# A tibble: 16 × 17
+    ID_0 ISO   NAME_0   ID_1 NAME_1      VARNAME_1 NL_NAME_1 HASC_1 CC_1  TYPE_1
+ * &lt;int&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; 
+ 1    60 DEU   Germany   753 Baden-Wurt… &lt;NA&gt;      &lt;NA&gt;      DE.BW  &lt;NA&gt;  Land  
+ 2    60 DEU   Germany   754 Bayern      Bavaria   &lt;NA&gt;      DE.BY  &lt;NA&gt;  Land  
+ 3    60 DEU   Germany   755 Berlin      &lt;NA&gt;      &lt;NA&gt;      DE.BE  &lt;NA&gt;  Land  
+ 4    60 DEU   Germany   756 Brandenburg &lt;NA&gt;      &lt;NA&gt;      DE.BR  &lt;NA&gt;  Land  
+ 5    60 DEU   Germany   757 Bremen      &lt;NA&gt;      &lt;NA&gt;      DE.HB  &lt;NA&gt;  Land  
+ 6    60 DEU   Germany   758 Hamburg     &lt;NA&gt;      &lt;NA&gt;      DE.HH  &lt;NA&gt;  Land  
+ 7    60 DEU   Germany   759 Hessen      Hesse     &lt;NA&gt;      DE.HE  &lt;NA&gt;  Land  
+ 8    60 DEU   Germany   760 Mecklenbur… Mecklenb… &lt;NA&gt;      DE.MV  &lt;NA&gt;  Land  
+ 9    60 DEU   Germany   761 Niedersach… Lower Sa… &lt;NA&gt;      DE.NI  &lt;NA&gt;  Land  
+10    60 DEU   Germany   762 Nordrhein-… North Rh… &lt;NA&gt;      DE.NW  &lt;NA&gt;  Land  
+11    60 DEU   Germany   763 Rheinland-… Rhinelan… &lt;NA&gt;      DE.RP  &lt;NA&gt;  Land  
+12    60 DEU   Germany   764 Saarland    &lt;NA&gt;      &lt;NA&gt;      DE.SL  &lt;NA&gt;  Land  
+13    60 DEU   Germany   765 Sachsen     Saxony    &lt;NA&gt;      DE.SN  &lt;NA&gt;  Land  
+14    60 DEU   Germany   766 Sachsen-An… Saxony-A… &lt;NA&gt;      DE.ST  &lt;NA&gt;  Land  
+15    60 DEU   Germany   767 Schleswig-… &lt;NA&gt;      &lt;NA&gt;      DE.SH  &lt;NA&gt;  Land  
+16    60 DEU   Germany   768 Thuringen   Thuringia &lt;NA&gt;      DE.TH  &lt;NA&gt;  Land  
+# ℹ 7 more variables: ENGTYPE_1 &lt;chr&gt;, VALIDFR_1 &lt;chr&gt;, VALIDTO_1 &lt;chr&gt;,
+#   REMARKS_1 &lt;chr&gt;, Shape_Leng &lt;dbl&gt;, Shape_Area &lt;dbl&gt;,
+#   geom &lt;MULTIPOLYGON [m]&gt;</code></pre>
+</div>
+</div>
+<div class="f3 monash-gray80" style="line-height:0.9!important;">
+<p>Data source: https://github.com/edzer/sdsr/tree/main/data (select de_nuts1.gpkg)</p>
+</div>
+</section>
+<section id="plot-map" class="slide level2">
+<h2>Plot map</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
+</div>
+</div>
+</section>
+<section id="add-observed-values-to-the-map" class="slide level2">
+<h2>Add observed values to the map</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> map) <span class="sc">+</span> </span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2)) <span class="sc">+</span> </span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">scale_color_viridis</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
+</div>
+</div>
+</section>
+<section id="idw" class="slide level2">
+<h2>IDW</h2>
+<p>Step 1: Create a regular grid (<span class="math inline">\(10km \times 10km\)</span>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb33-2"><a href="#cb33-2"></a>grid <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(map) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">st_as_stars</span>(<span class="at">dx =</span> <span class="dv">10000</span>) <span class="sc">|&gt;</span> <span class="fu">st_crop</span>(map) </span>
+<span id="cb33-4"><a href="#cb33-4"></a>grid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 1 attribute
+attribute(s):
+        Min. 1st Qu. Median Mean 3rd Qu. Max. NA's
+values     0       0      0    0       0    0 2076
+dimension(s):
+  from to  offset  delta                refsys x/y
+x    1 65  280741  10000 WGS 84 / UTM zone 32N [x]
+y    1 87 6101239 -10000 WGS 84 / UTM zone 32N [y]</code></pre>
+</div>
+</div>
+<ul>
+<li class="fragment"><p><code>st_bbox(map)</code>: Calculate the bounding box of the spatial object <code>map</code>.</p></li>
+<li class="fragment"><p><code>st_as_stars(dx = 10000)</code>: Convert the bounding box obtained from <code>st_bbox(map)</code> into a raster object using the stars package. The <code>dx</code> parameter sets the cell size (in the x-direction) for the resulting raster, with a value of 10000 specified here.</p></li>
+</ul>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<ul>
+<li class="fragment"><code>st_crop(map):</code> This function crops the raster grid obtained from st_as_stars(dx = 10000) to match the extent of the map object. This ensures that the resulting grid covers only the area within the spatial extent of the map object.</li>
+</ul>
+</section>
+<section id="idw-1" class="slide level2">
+<h2>IDW</h2>
+<p>Step 2: Interpolation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">library</span>(gstat)</span>
+<span id="cb35-2"><a href="#cb35-2"></a>interpolated.values <span class="ot">&lt;-</span> <span class="fu">idw</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[inverse distance weighted interpolation]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>interpolated.values </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 2 attributes
+attribute(s):
+               Min.  1st Qu.   Median     Mean  3rd Qu.     Max. NA's
+var1.pred  2.168083 7.397774 8.323239 8.571584 9.422718 20.47053 2076
+var1.var         NA       NA       NA      NaN       NA       NA 5655
+dimension(s):
+  from to  offset  delta                refsys x/y
+x    1 65  280741  10000 WGS 84 / UTM zone 32N [x]
+y    1 87 6101239 -10000 WGS 84 / UTM zone 32N [y]</code></pre>
+</div>
+</div>
+</section>
+<section id="idw-2" class="slide level2">
+<h2>IDW</h2>
+<p>Step 3: Plot values</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> interpolated.values, </span>
+<span id="cb39-2"><a href="#cb39-2"></a>                      <span class="fu">aes</span>(<span class="at">fill =</span> var1.pred, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
+<span id="cb39-3"><a href="#cb39-3"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(map, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
+<span id="cb39-4"><a href="#cb39-4"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">col=</span><span class="st">"red"</span>) <span class="sc">+</span> <span class="fu">scale_fill_viridis</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
+</div>
+</div>
+</section>
+<section id="comparison" class="slide level2">
+<h2>Comparison</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb40-2"><a href="#cb40-2"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> map) <span class="sc">+</span>  <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2)) <span class="sc">+</span> <span class="fu">scale_color_viridis</span>()</span>
+<span id="cb40-3"><a href="#cb40-3"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> interpolated.values, </span>
+<span id="cb40-4"><a href="#cb40-4"></a>                      <span class="fu">aes</span>(<span class="at">fill =</span> var1.pred, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(map, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">col=</span><span class="st">"red"</span>) <span class="sc">+</span> <span class="fu">scale_fill_viridis</span>() </span>
+<span id="cb40-5"><a href="#cb40-5"></a>p1<span class="sc">|</span>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
 </div>
 </div>
 <div class="footer footer-default">
