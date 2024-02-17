@@ -1403,26 +1403,32 @@ y    1 87 6101239 -10000 WGS 84 / UTM zone 32N [y]</code></pre>
 </div>
 </div>
 <ul>
-<li class="fragment"><p><code>st_bbox(map)</code>: Calculate the bounding box of the spatial object <code>map</code>.</p></li>
-<li class="fragment"><p><code>st_as_stars(dx = 10000)</code>: Convert the bounding box obtained from <code>st_bbox(map)</code> into a raster object using the stars package. The <code>dx</code> parameter sets the cell size (in the x-direction) for the resulting raster, with a value of 10000 specified here.</p></li>
+<li class="fragment"><code>st_bbox(map)</code>: Calculate the bounding box of the spatial object <code>map</code>.</li>
 </ul>
 </section>
 <section id="section-3" class="slide level2">
 <h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb35-2"><a href="#cb35-2"></a>grid <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(map) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">st_as_stars</span>(<span class="at">dx =</span> <span class="dv">10000</span>) <span class="sc">|&gt;</span> <span class="fu">st_crop</span>(map) </span>
+<span id="cb35-4"><a href="#cb35-4"></a>grid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
-<li class="fragment"><code>st_crop(map):</code> This function crops the raster grid obtained from st_as_stars(dx = 10000) to match the extent of the map object. This ensures that the resulting grid covers only the area within the spatial extent of the map object.</li>
+<li class="fragment"><p><code>st_as_stars(dx = 10000)</code>: Convert the bounding box obtained from <code>st_bbox(map)</code> into a raster object using the stars package. The <code>dx</code> parameter sets the cell size (in the x-direction) for the resulting raster, with a value of 10000 specified here.</p></li>
+<li class="fragment"><p><code>st_crop(map):</code> This function crops the raster grid obtained from st_as_stars(dx = 10000) to match the extent of the map object. This ensures that the resulting grid covers only the area within the spatial extent of the map object.</p></li>
 </ul>
 </section>
 <section id="idw-1" class="slide level2">
 <h2>IDW</h2>
 <p>Step 2: Interpolation</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">library</span>(gstat)</span>
-<span id="cb35-2"><a href="#cb35-2"></a>interpolated.values <span class="ot">&lt;-</span> <span class="fu">idw</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">library</span>(gstat)</span>
+<span id="cb36-2"><a href="#cb36-2"></a>interpolated.values <span class="ot">&lt;-</span> <span class="fu">idw</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[inverse distance weighted interpolation]</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>interpolated.values </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>interpolated.values </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stars object with 2 dimensions and 2 attributes
 attribute(s):
@@ -1440,25 +1446,25 @@ y    1 87 6101239 -10000 WGS 84 / UTM zone 32N [y]</code></pre>
 <h2>IDW</h2>
 <p>Step 3: Plot values</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> interpolated.values, </span>
-<span id="cb39-2"><a href="#cb39-2"></a>                      <span class="fu">aes</span>(<span class="at">fill =</span> var1.pred, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb39-3"><a href="#cb39-3"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(map, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
-<span id="cb39-4"><a href="#cb39-4"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">col=</span><span class="st">"red"</span>) <span class="sc">+</span> <span class="fu">scale_fill_viridis</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> interpolated.values, </span>
+<span id="cb40-2"><a href="#cb40-2"></a>                      <span class="fu">aes</span>(<span class="at">fill =</span> var1.pred, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
+<span id="cb40-3"><a href="#cb40-3"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(map, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
+<span id="cb40-4"><a href="#cb40-4"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">col=</span><span class="st">"red"</span>) <span class="sc">+</span> <span class="fu">scale_fill_viridis</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
 </div>
 </div>
 </section>
 <section id="comparison" class="slide level2">
 <h2>Comparison</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb40-2"><a href="#cb40-2"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> map) <span class="sc">+</span>  <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2)) <span class="sc">+</span> <span class="fu">scale_color_viridis</span>()</span>
-<span id="cb40-3"><a href="#cb40-3"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> interpolated.values, </span>
-<span id="cb40-4"><a href="#cb40-4"></a>                      <span class="fu">aes</span>(<span class="at">fill =</span> var1.pred, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(map, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">col=</span><span class="st">"red"</span>) <span class="sc">+</span> <span class="fu">scale_fill_viridis</span>() </span>
-<span id="cb40-5"><a href="#cb40-5"></a>p1<span class="sc">|</span>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb41-2"><a href="#cb41-2"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> map) <span class="sc">+</span>  <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2)) <span class="sc">+</span> <span class="fu">scale_color_viridis</span>()</span>
+<span id="cb41-3"><a href="#cb41-3"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> interpolated.values, </span>
+<span id="cb41-4"><a href="#cb41-4"></a>                      <span class="fu">aes</span>(<span class="at">fill =</span> var1.pred, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(map, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">col=</span><span class="st">"red"</span>) <span class="sc">+</span> <span class="fu">scale_fill_viridis</span>() </span>
+<span id="cb41-5"><a href="#cb41-5"></a>p1<span class="sc">|</span>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
 </div>
 </div>
 <div class="footer footer-default">

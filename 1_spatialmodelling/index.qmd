@@ -499,9 +499,18 @@ grid
 
 - `st_bbox(map)`: Calculate the bounding box of the spatial object `map`.
 
+##
+
+```{r, warning=FALSE}
+#| eval: false
+library(stars)
+grid <- st_bbox(map) |>
+  st_as_stars(dx = 10000) |> st_crop(map) 
+grid
+```
+
 - `st_as_stars(dx = 10000)`: Convert the bounding box obtained from `st_bbox(map)` into a raster object using the stars package. The `dx` parameter sets the cell size (in the x-direction) for the resulting raster, with a value of 10000 specified here.
 
-##
 
 - `st_crop(map):` This function crops the raster grid obtained from st_as_stars(dx = 10000) to match the extent of the map object. This ensures that the resulting grid covers only the area within the spatial extent of the map object.
 
@@ -535,3 +544,4 @@ p2 <- ggplot() + geom_stars(data = interpolated.values,
                       aes(fill = var1.pred, x = x, y = y)) + geom_sf(data = st_cast(map, "MULTILINESTRING")) + geom_sf(data = no2.sf, col="red") + scale_fill_viridis() 
 p1|p2
 ```
+
