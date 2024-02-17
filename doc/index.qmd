@@ -545,3 +545,82 @@ p2 <- ggplot() + geom_stars(data = interpolated.values,
 p1|p2
 ```
 
+## Variogram Modelling and Krigging
+
+Geostatistical processes are generally modelled using additive decomposition:
+
+$$Z(s) = \mu(s) + \epsilon(s)$$
+
+Where,
+
+$\mu(s)$ - large-scale variation/ spatial-trend/ spatially varying mean that captures the long range (nonstationary) spatial variation
+
+$\epsilon(s)$ - small-scale variation/ innovations/ spatial geostatistical error
+
+- To fully capture the characteristics of the geostatistical process, we need to model both $\mu(s)$ and $\epsilon(s)$.
+
+## Overall modeeling approach
+
+$$Z(s) = \mu(s) + \epsilon(s)$$
+
+First we model $\mu(s)$ using OLS or some other trend model  via covariates and the residuals are used to model small-scale variation. 
+
+
+## Modelling Large Scale Variation
+
+- Regression
+
+- Machine-learning models
+
+
+## Modelling Small Scale Variation
+
+Let's learn some theories we need to model small scale variations.
+
+## Investigate Spatial Autocorrelation Using Empirical Variogram/ Variogram cloud
+
+$$\gamma(s, t) = \frac{1}{2}Var\{Z(s_i) - Z(s_j)\}$$
+An estimator for this is
+
+$$\gamma(s, t) = \frac{1}{2}\{Z(s_i) - Z(s_j)\}^2$$
+
+Proof: In-class
+
+## Variogram Cloud/ Empirical Variogram
+
+```{r}
+vcloud <- variogram(NO2~1, no2.sf, cloud=TRUE)
+vcloud
+```
+
+## Illustration: `gamma` value calculation
+
+```{r}
+right <- no2[1,]$NO2
+right
+left <- no2[3,]$NO2
+left
+(right-left)^2/2
+```
+
+## Illustration: `dist` value calculation
+
+Your turn
+
+
+## Variogram Cloud: Method 1
+
+```{r}
+ggplot(data=vcloud, aes(x=dist, y=gamma)) + geom_point()
+```
+
+
+## Variogram Cloud: Method 2
+
+```{r}
+plot(vcloud)
+```
+
+## Binned Empirical Semi-Variogram
+
+
