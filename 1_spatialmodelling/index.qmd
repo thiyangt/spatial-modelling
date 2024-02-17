@@ -1,0 +1,209 @@
+---
+pagetitle: "Spatial Data Modelling"
+author: "Dr Thiyanga S. Talagala"
+date: "18 February 2024"
+host: "MSc in Data Science and Intelligence"
+institute: "University of Sri Jayewardenepura"
+strip-comments: true
+format: 
+  revealjs:
+    slide-number: true
+    multiplex: true
+    theme: assets/monash.scss
+    show-slide-number: all
+    controls: true
+    width: 1280
+    height: 720
+    incremental: true
+    auto-stretch: false
+    css: [assets/custom.css, assets/pacman.css, assets/tachyons-addon.css]
+    include-after: |
+      <link rel="stylesheet" href="assets/syntax-highlight.css">
+      <link rel="stylesheet" href="assets/fontawesome-free-6.1.1-web/css/all.min.css">
+      <script src="assets/fontawesome-free-6.1.1-web/js/all.min.js"></script>
+callout-icon: false
+output-file: index.html
+execute:
+  echo: true
+---
+
+## {#title-slide background="images/book-bg.jpg"}
+
+```{r setup, include = FALSE}
+library(tidyverse)
+
+rotating_text <- function(x, align = "center") {
+  glue::glue('
+<div style="overflow: hidden; height: 1.2em;">
+<ul class="content__container__list {align}" style="text-align: {align}">
+<li class="content__item">{x[1]}</li>
+<li class="content__item">{x[2]}</li>
+<li class="content__item">{x[3]}</li>
+<li class="content__item">{x[4]}</li>
+</ul>
+</div>')
+}
+
+fa_list <- function(x, incremental = FALSE) {
+  icons <- names(x)
+  fragment <- ifelse(incremental, "fragment", "")
+  items <- glue::glue('<li class="{fragment}"><span class="fa-li"><i class="{icons}"></i></span> {x}</li>')
+  paste('<ul class="fa-ul">', 
+        paste(items, collapse = "\n"),
+        "</ul>", sep = "\n")
+}
+
+```
+
+::: title-box
+
+<h2>`r rmarkdown::metadata$pagetitle`</h2>
+
+👩🏻‍💻 [`r rmarkdown::metadata$author` @ `r rmarkdown::metadata$institute`]{.author}  
+
+
+`r rotating_text(c('<i class="fa-solid fa-envelope"></i> ttalagala@sjp.ac.lk', '<i class="fa-brands fa-twitter"></i> @thiyangt', '<i class="fa-brands fa-github"></i> github.com/thiyangt', '<i class="fa-solid fa-globe"></i> https://thiyanga.netlify.app/'))`
+
+
+:::
+
+
+
+## Outline  {background-color=""}
+
+## Introduction
+
+A spatial stochastic process is a family of random variables $$\{Z(s): s \in D\}.$$
+
+Here, 
+
+$D$ is the spatial domain in which observations could be made and 
+
+$Z(s)$ is a random variable representing the quantity  that you measured at location $s$.
+
+## Daily temperature in Canada
+
+Locations of Canadian weather stations: $s_i$
+
+```{r}
+library(sf)
+library(geoFourierFDA)
+library(rnaturalearth)
+canada$m_coord
+```
+
+
+Example: $s_1 = (50.25, -104.39)$
+
+## Daily temperature in Canada
+
+Observed daily temperature value: $z(s_i)$
+
+```{r}
+canada$m_data[1, ]
+```
+
+Example: 
+
+$$s_1 = (50.25, -104.39)$$
+$$z(s_1) = -15.7$$
+
+## Visualization
+
+```{r}
+df <- data.frame(canada$m_coord)
+df
+```
+
+## Visualization (cont.)
+
+```{r}
+df$location <- attr(canada$m_coord, "dimnames")[[1]]
+df
+```
+
+## Visualisation (cont.)
+
+```{r}
+df <- st_as_sf(df, coords=c("W.longitude", "N.latitude"))
+df
+```
+
+## Visualisation (cont.)
+
+```{r}
+st_crs(df) <- 4326
+df
+```
+
+## Add temperature data
+
+```{r}
+df$temp <- canada$m_data[1, ]
+df
+```
+
+## Getting map data
+
+```{r}
+map <- rnaturalearth::ne_states("Canada", returnclass = "sf")
+map
+```
+
+## Visualisation of the spatial domain
+
+This represents $D$ - spatial domain (geographical region which the observations could be made)
+
+```{r}
+ggplot(map) + geom_sf()
+```
+
+A spatial stochastic process is a family of random variables $$\{Z(s): s \in D\}.$$
+
+## Visualisation of the spatial domain, and $z(s_i)$ values
+
+
+```{r}
+library(viridis)
+ggplot(map) + geom_sf() +
+  geom_sf(data=df, aes(color = temp), size=3) +
+  scale_color_viridis()
+```
+
+
+
+## Three types of spatial processes
+
+1. Geostatistical processes: 
+
+   In theory the process could be observed at **infinitely many locations** in $S \in D$.
+   
+   Example: Air temperature in Sri Lanka
+
+2. Areal process
+    
+      Here $D$ is divided into on-overlapping sub regions such as $D = {B_1, B_2,...B_n}$ where $B_i$ is the $i^{th}$ sub region.
+  
+    
+    Example: Total number of dengue cases in each district in Sri Lanka
+ 
+3. Point process
+
+    The process can be observed only at specific locations in $S \in D$.
+  
+    Example: Tree volume of sandalwood trees in Sri Lanka
+
+
+
+## Tobler’s First Law of Geography
+
+Everything is related to everything else, but near things are more related than distant things.
+
+```{r}
+library(viridis)
+ggplot(map) + geom_sf() +
+  geom_sf(data=df, aes(color = temp), size=3) +
+  scale_color_viridis()
+```
+
+
