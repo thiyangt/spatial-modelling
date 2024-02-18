@@ -769,9 +769,72 @@ krig.ok.cv
 ```{r}
 round(sqrt(mean(krig.ok.cv$residual^2)), 2)
 ```
+
+## Regression Kriging
+
+There is a trend in $\mu(s)$. This trend is estimated using covariates other than coordinates.
+
+```{r}
+plot( no2.sf$station_altitude, no2.sf$NO2,)
+```
+
+## Sample Variogram
+
+```{r}
+v.rk <- variogram(NO2~station_altitude, no2.sf)
+plot(v.rk)
+```
+
+## Fit Variogram
+
+```{r}
+v.m.rk <- fit.variogram(v.rk, vgm(psill=15, model = "Exp", range = 20000, nugget = 1))
+plot(v1, v.m)
+```
+
+## Assess isotropy assumption
+
+```{r}
+v1.ani.rk <- variogram(NO2~station_altitude, alpha = c(0, 45, 90, 135), no2.sf)
+v.m.rk <- fit.variogram(v1.ani.rk, vgm(psill=15, model = "Exp", range = 20000, nugget = 1))
+plot(v1.ani.rk, v.m.rk)
+```
+
+## Regression Kriging
+
+Your turn: Complete regression kriging
+
 ## Using covariate
 
 ```r
 vr <- variogram(NO2~sqrt(pop_dens), no2.sf)
 vr.m <- fit.variogram(vr, vgm(1, "Exp", 50000, 1))
+```
+
+## Your turn
+
+<!--https://www.paulamoraga.com/book-spatial/kriging.html-->
+
+```{r}
+library(sp)
+library(gstat)
+library(sf)
+library(mapview)
+
+data(meuse)
+data(meuse.grid)
+
+meuse <- st_as_sf(meuse, coords = c("x", "y"), crs = 28992)
+mapview(meuse, zcol = "zinc",  map.types = "CartoDB.Voyager")
+
+meuse.grid <- st_as_sf(meuse.grid, coords = c("x", "y"),
+                       crs = 28992)
+mapview(meuse.grid,  map.types = "CartoDB.Voyager")
+```
+
+
+## Perform EDA
+
+```{r}
+meuse
 ```
