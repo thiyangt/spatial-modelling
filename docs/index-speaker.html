@@ -3498,10 +3498,133 @@ First 10 features:
 <h2>Variogram Interpretations</h2>
 <p><a href="https://csegrecorder.com/articles/view/the-variogram-basics-a-visual-intro-to-useful-geostatistical-concepts">Resources 1</a></p>
 <p><a href="https://www.semanticscholar.org/paper/Methodology-for-Variogram-Interpretation-and-for-Gringarten-Deutsch/c12c97b6da9a7c1ee163c86cb5e669eed3dc3976">Resources 2</a></p>
+</section>
+<section id="accuracy-measures-and-cross-validation-strategies-for-data-with-temporal-and-or-spatial-structures" class="slide level2">
+<h2>Accuracy Measures and Cross-validation Strategies for Data with Temporal and/ or Spatial Structures</h2>
+</section>
+<section id="loss-function" class="title-slide slide level1 center">
+<h1>Loss function</h1>
+<ul>
+<li class="fragment">Function that calculates loss for a single data point</li>
+</ul>
+<p><span class="math inline">\(e_i = y - \hat{y}\)</span></p>
+<p><span class="math inline">\(e_i^2 = (y - \hat{y})^2\)</span></p>
+</section>
+
+<section id="cost-function" class="title-slide slide level1 center">
+<h1>Cost function</h1>
+<ul>
+<li class="fragment">Calculates loss for the entire data sets</li>
+</ul>
+<p><span class="math display">\[ME = \frac{1}{n}\sum_{i=1}^n e_i\]</span></p>
+</section>
+
+<section>
+<section id="numeric-outcome-evaluations" class="title-slide slide level1 center">
+<h1>Numeric outcome: Evaluations</h1>
+
+</section>
+<section id="prediction-accuracy-measures-cost-functions" class="slide level2">
+<h2>Prediction accuracy measures (cost functions)</h2>
+<p>Mean Error</p>
+<p><span class="math display">\[ME = \frac{1}{n}\sum_{i=1}^n e_i\]</span></p>
+<ul>
+<li class="fragment">Error can be both negative and positive. So they can cancel each other during the summation.</li>
+</ul>
+</section>
+<section id="mean-absolute-error-l1-loss" class="slide level2">
+<h2>Mean Absolute Error (L1 loss)</h2>
+<p><span class="math display">\[MAE = \frac{1}{n}\sum_{i=1}^n |e_i|\]</span></p>
+</section>
+<section id="mean-squared-error-l2-loss" class="slide level2">
+<h2>Mean Squared Error (L2 loss)</h2>
+<p><span class="math display">\[MSE = \frac{1}{n}\sum_{i=1}^n e^2_i\]</span></p>
+</section>
+<section id="mean-percentage-error" class="slide level2">
+<h2>Mean Percentage Error</h2>
+<p><span class="math display">\[MPE = \frac{1}{n}\sum_{i=1}^n \frac{e_i}{y_i}\]</span></p>
+</section>
+<section id="mean-absolute-percentage-error" class="slide level2">
+<h2>Mean Absolute Percentage Error</h2>
+<p><span class="math display">\[MAPE = \frac{1}{n}\sum_{i=1}^n |\frac{e_i}{y_i}|\]</span></p>
+</section>
+<section id="root-mean-squared-error" class="slide level2">
+<h2>Root Mean Squared Error</h2>
+<p><span class="math display">\[RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^n e^2_i}\]</span></p>
+</section>
+<section id="mean-absolute-scaled-error" class="slide level2">
+<h2>Mean Absolute Scaled Error</h2>
+<p>In-class discussion</p>
+<p><a href="https://robjhyndman.com/papers/mase.pdf" data-preview-link="true">https://robjhyndman.com/papers/mase.pdf</a></p>
+</section>
+<section id="visualizaion-of-error-distribution" class="slide level2">
+<h2>Visualizaion of error distribution</h2>
+<p>Graphical representations reveal more than metrics alone.</p>
+</section>
+<section id="accuracy-measures-on-training-set-vs-test-set" class="slide level2">
+<h2>Accuracy Measures on Training Set vs Test Set</h2>
+<p>Accuracy measure on training set: Tells about the model fit</p>
+<p>Accuracy measure on test set: Model ability to predict new data</p>
+</section>
+<section id="evaluate-classifier-against-benchmarks" class="slide level2">
+<h2>Evaluate Classifier Against Benchmarks</h2>
+<p>Naive approach: approach relies soley on <span class="math inline">\(Y\)</span></p>
+<p>Outcome: Numeric</p>
+<p>Naive Benchmark: Average (<span class="math inline">\(\bar{Y}\)</span>)</p>
+</section>
+<section id="time-series-cross-validation" class="slide level2">
+<h2>Time series cross-validation</h2>
+<p><img data-src="crossvalidation.png"></p>
+<p>Image credit: Professor Rob Hyndman</p>
+</section>
+<section id="loocv" class="slide level2">
+<h2>LOOCV</h2>
+<p><img data-src="loocv.png"></p>
+<p>Blue - Training set</p>
+<p>Orange - Test set</p>
+<p>Not good for time series data. Why?</p>
+</section>
+<section id="evaluation-on-a-rolling-forecasting-origin" class="slide level2">
+<h2>Evaluation on a rolling forecasting origin</h2>
+<ul>
+<li class="fragment"><p>There are a series of test sets, each consisting of a single observation.</p></li>
+<li class="fragment"><p>The corresponding training set consists only of observations that occurred prior to the observation that forms the test set.</p></li>
+</ul>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<p><img data-src="cv1.svg"></p>
+<p>Training set - blue, Test set - red</p>
+<p>The forecast accuracy is computed by averaging over the test sets.</p>
+<p>Source: Hyndman, R. J., &amp; Athanasopoulos, G. (2018). Forecasting: principles and practice. OTexts.</p>
+</section>
+<section id="multi-step-ahead-forecast" class="slide level2">
+<h2>Multi-step ahead forecast</h2>
+<p><img data-src="cv4.svg"></p>
+<p>Training set - blue, Test set - red</p>
+<p>Source: Hyndman, R. J., &amp; Athanasopoulos, G. (2018). Forecasting: principles and practice. OTexts.</p>
+</section>
+<section id="cross-validation-in-space" class="slide level2">
+<h2>Cross-validation in Space</h2>
+<p><img data-src="space_cv.png"></p>
+<p>Source: Roberts, D. R., Bahn, V., Ciuti, S., Boyce, M. S., Elith, J., Guillera‐Arroita, G., … &amp; Dormann, C. F. (2017). Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure. Ecography, 40(8), 913-929</p>
+</section>
+<section id="case-1-unbalanced-data" class="slide level2">
+<h2>Case 1: Unbalanced data</h2>
+<p><img data-src="space_cv.png"></p>
+</section>
+<section id="case-2" class="slide level2">
+<h2>Case 2</h2>
+<p>Source: Ploton, P., Mortier, F., Réjou-Méchain, M., Barbier, N., Picard, N., Rossi, V., … &amp; Pélissier, R. (2020). Spatial validation reveals poor predictive performance of large-scale ecological mapping models. Nature communications, 11(1), 1-11.</p>
+<p><img data-src="scv.png"></p>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<p><img data-src="scv.png"></p>
 <div class="footer footer-default">
 
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
