@@ -838,3 +838,14 @@ mapview(meuse.grid,  map.types = "CartoDB.Voyager")
 ```{r}
 meuse
 ```
+
+
+## Variogram Modelling with Pyhon
+
+[Click here to view the tutorial](https://scikit-gstat.readthedocs.io/en/latest/auto_examples/tutorial_01_getting_started.html)
+
+## Variogram Interpretations
+
+[Resources 1](https://csegrecorder.com/articles/view/the-variogram-basics-a-visual-intro-to-useful-geostatistical-concepts)
+
+[Resources 2](https://www.semanticscholar.org/paper/Methodology-for-Variogram-Interpretation-and-for-Gringarten-Deutsch/c12c97b6da9a7c1ee163c86cb5e669eed3dc3976)
